@@ -1,14 +1,17 @@
 class IndecisionApp extends React.Component{
-   
+    removeAll(){
+
+    };
+
     render(){
         const title = "Indecision";
-        const subTitle = "Randomize your decision"
-        const options = ['Thing one', 'Thing two', 'Thing three']
+        const subTitle = "RNGesus, Take the wheel";
+        const options = ['Thing one', 'Thing two', 'Thing three'];
         return(
             <div>
                 <Header title={title} subTitle={subTitle}/>
                 <Action/>
-                <Options options={options}/>
+                <Options click={this.removeAll} options={options}/>
                 <AddOption/>
             </div>
         );
@@ -27,16 +30,29 @@ class Header extends React.Component{
 };
 
 class Action extends React.Component{
+    handlePick(){
+        alert('Handle Pick');
+    }
     render(){
         return (
             <div>
-                <button>What should I do?</button>
+                <button onClick={this.handlePick}>What should I do?</button>
             </div>
         );
     };
 };
 
 class Options extends React.Component{
+    constructor(props){
+        super(props);
+        this.removeAllHandler = this.removeAllHandler.bind(this);
+    };
+
+    removeAllHandler(){
+        console.log(this.props.options);
+        alert('Remove all button');
+    };
+    
     render(){
         return(
             <div>
@@ -45,6 +61,7 @@ class Options extends React.Component{
                         return <Option key={index} optionText={option}/>;
                     })
                 }
+                <button onClick={this.removeAllHandler}>Remove all</button>
             </div>
         );
     };
@@ -61,10 +78,17 @@ class Option extends React.Component{
 };
 
 class AddOption extends React.Component{
+    submitHandler(e){
+        e.preventDefault();
+        if(e.target.input.value.trim() !== '') alert(e.target.input.value.trim());
+    }
     render(){
         return (
             <div>
-                Add options here
+                <form onSubmit={this.submitHandler}>
+                    <input type="text" placeholder="add option here" name="input"/>
+                    <button>Add option</button>
+                </form>
             </div>
         );
     }
