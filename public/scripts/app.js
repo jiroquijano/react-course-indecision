@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -17,9 +17,9 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            title: "Indecision",
+            title: 'Indecision App',
             subTitle: "RNGesus, take the wheel",
-            options: [],
+            options: props.options,
             chosen: ''
         };
         _this.removeAll = _this.removeAll.bind(_this);
@@ -29,19 +29,20 @@ var IndecisionApp = function (_React$Component) {
     }
 
     _createClass(IndecisionApp, [{
-        key: "chooseTask",
+        key: 'chooseTask',
         value: function chooseTask() {
             var _this2 = this;
 
             var chosenNumber = Math.floor(Math.random() * this.state.options.length);
             this.setState(function () {
+                alert(_this2.state.options[chosenNumber]);
                 return {
                     chosen: _this2.state.options[chosenNumber]
                 };
             });
         }
     }, {
-        key: "removeAll",
+        key: 'removeAll',
         value: function removeAll() {
             this.setState(function () {
                 return {
@@ -51,12 +52,12 @@ var IndecisionApp = function (_React$Component) {
             });
         }
     }, {
-        key: "submitHandler",
+        key: 'submitHandler',
         value: function submitHandler(option) {
             var _this3 = this;
 
             if (this.state.options.includes(option.toLowerCase())) {
-                return "\"" + option + "\" already in the list!";
+                return '"' + option + '" already in the list!';
             } else if (option.length === 0) {
                 return 'empty string not allowed';
             }
@@ -69,14 +70,14 @@ var IndecisionApp = function (_React$Component) {
             });
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
-                React.createElement(Header, { title: this.state.title, subTitle: this.state.subTitle }),
+                React.createElement(Header, { subTitle: this.state.subTitle }),
                 this.state.chosen ? React.createElement(
-                    "p",
+                    'p',
                     null,
                     this.state.chosen
                 ) : undefined,
@@ -92,56 +93,64 @@ var IndecisionApp = function (_React$Component) {
 
 ;
 
+IndecisionApp.defaultProps = {
+    options: []
+};
+
 var Header = function Header(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "h1",
+            'h1',
             null,
             props.title
         ),
-        React.createElement(
-            "h2",
+        props.subTitle && React.createElement(
+            'h2',
             null,
             props.subTitle
         )
     );
 };
 
+Header.defaultProps = {
+    title: 'Indecision'
+};
+
 var Action = function Action(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "button",
+            'button',
             { disabled: !props.hasOptions, onClick: props.chooseTask },
-            "What should I do?"
+            'What should I do?'
         )
     );
 };
 
 var Options = function Options(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
         props.options.map(function (option, index) {
             return React.createElement(Option, { key: index, optionText: option });
         }),
         React.createElement(
-            "button",
+            'button',
             { onClick: props.click },
-            "Remove all"
+            'Remove all'
         )
     );
 };
 
 var Option = function Option(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "p",
+            'p',
             null,
             props.optionText
         )
@@ -164,7 +173,7 @@ var AddOption = function (_React$Component2) {
     }
 
     _createClass(AddOption, [{
-        key: "handleSubmit",
+        key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
             var option = e.target.input.value.trim();
@@ -176,24 +185,24 @@ var AddOption = function (_React$Component2) {
             });
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
                 this.state.error && React.createElement(
-                    "p",
+                    'p',
                     null,
                     this.state.error
                 ),
                 React.createElement(
-                    "form",
+                    'form',
                     { onSubmit: this.handleSubmit },
-                    React.createElement("input", { type: "text", placeholder: "add option here", name: "input", autoComplete: "off" }),
+                    React.createElement('input', { type: 'text', placeholder: 'add option here', name: 'input', autoComplete: 'off' }),
                     React.createElement(
-                        "button",
+                        'button',
                         null,
-                        "Add option"
+                        'Add option'
                     )
                 )
             );

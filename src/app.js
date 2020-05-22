@@ -2,9 +2,9 @@ class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            title: "Indecision",
+            title: 'Indecision App',
             subTitle: "RNGesus, take the wheel",
-            options: [],
+            options: props.options,
             chosen: ''
         };
         this.removeAll = this.removeAll.bind(this);
@@ -15,6 +15,7 @@ class IndecisionApp extends React.Component{
     chooseTask(){
         const chosenNumber = Math.floor(Math.random()*this.state.options.length);
         this.setState(()=>{
+            alert(this.state.options[chosenNumber]);
             return {
                 chosen: this.state.options[chosenNumber]
             }
@@ -48,7 +49,7 @@ class IndecisionApp extends React.Component{
     render(){
         return(
             <div>
-                <Header title={this.state.title} subTitle={this.state.subTitle}/>
+                <Header subTitle={this.state.subTitle}/>
                 {this.state.chosen ? <p>{this.state.chosen}</p>:undefined}
                 <Action chooseTask={this.chooseTask} hasOptions={this.state.options.length > 0}/>
                 <Options click={this.removeAll} options={this.state.options}/>
@@ -58,13 +59,21 @@ class IndecisionApp extends React.Component{
     };
 };
 
+IndecisionApp.defaultProps={
+    options: []
+}
+
 const Header = (props) =>{
     return(
         <div>
             <h1>{props.title}</h1>
-            <h2>{props.subTitle}</h2>
+            {props.subTitle && <h2>{props.subTitle}</h2>}
         </div>
     );
+};
+
+Header.defaultProps = {
+    title: 'Indecision'
 };
 
 const Action = (props) =>{
