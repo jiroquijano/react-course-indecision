@@ -27,7 +27,7 @@ class Visibility extends React.Component{
 };
 
 const appRoot = document.querySelector('#app');
-ReactDOM.render(<Visibility/>, appRoot);
+ReactDOM.render(<Visibility/>,appRoot);
 
 
 
