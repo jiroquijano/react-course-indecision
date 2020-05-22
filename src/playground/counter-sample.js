@@ -2,7 +2,7 @@ class Counter extends React.Component{
     constructor(props){
         super(props);
         this.state ={
-            count: 0
+            count: props.count
         };
         this.increment = this.increment.bind(this);
         this.decrement = this.decrement.bind(this);
@@ -40,38 +40,9 @@ class Counter extends React.Component{
     };
 };
 
+Counter.defaultProps={
+    count: 0
+}
+
 const appRoot = document.querySelector('#app');
 ReactDOM.render(<Counter/>, appRoot);
-
-
-
-// let count = 0;
-// const increment = ()=>{
-//     count++;
-//     renderCounterApp();
-// }
-
-// const decrement = ()=>{
-//     count--;
-//     renderCounterApp();
-// };
-
-// const reset = ()=>{
-//     count = 0;
-//     renderCounterApp();
-// };
-
-
-// const renderCounterApp = ()=>{
-//     const templateTwo = (
-//         <div>
-//             <h1>Count: {count}</h1>
-//             <button onClick={increment}>+1</button>
-//             <button onClick={decrement}>-1</button>
-//             <button onClick={reset}>Reset</button>
-//         </div>
-//     );
-//     ReactDOM.render(templateTwo,appRoot);
-// };
-
-// renderCounterApp();
