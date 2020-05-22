@@ -1,18 +1,47 @@
 class IndecisionApp extends React.Component{
-    removeAll(){
+    constructor(props){
+        super(props);
+        this.state = {
+            title: "Indecision",
+            subTitle: "RNGesus, take the wheel",
+            options: []
+        };
+        this.removeAll = this.removeAll.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
+    };
 
+    removeAll(){
+        this.setState(()=>{
+            return {
+                options: []
+            };
+        });
+    }
+
+    submitHandler(e){
+        e.preventDefault();
+        const newValue = e.target.input.value.trim();
+        e.target.input.value = '';
+        if(newValue !== ''){
+
+            this.setState(()=>{
+                const newOptions = this.state.options;
+                newOptions.push(newValue);
+                return{
+                    options:newOptions
+                }
+            });
+
+        }
     };
 
     render(){
-        const title = "Indecision";
-        const subTitle = "RNGesus, Take the wheel";
-        const options = ['Thing one', 'Thing two', 'Thing three'];
         return(
             <div>
-                <Header title={title} subTitle={subTitle}/>
+                <Header title={this.state.title} subTitle={this.state.subTitle}/>
                 <Action/>
-                <Options click={this.removeAll} options={options}/>
-                <AddOption/>
+                <Options click={this.removeAll} options={this.state.options}/>
+                <AddOption submit={this.submitHandler}/>
             </div>
         );
     }
@@ -42,17 +71,7 @@ class Action extends React.Component{
     };
 };
 
-class Options extends React.Component{
-    constructor(props){
-        super(props);
-        this.removeAllHandler = this.removeAllHandler.bind(this);
-    };
-
-    removeAllHandler(){
-        console.log(this.props.options);
-        alert('Remove all button');
-    };
-    
+class Options extends React.Component{  
     render(){
         return(
             <div>
@@ -61,7 +80,7 @@ class Options extends React.Component{
                         return <Option key={index} optionText={option}/>;
                     })
                 }
-                <button onClick={this.removeAllHandler}>Remove all</button>
+                <button onClick={this.props.click}>Remove all</button>
             </div>
         );
     };
@@ -78,15 +97,11 @@ class Option extends React.Component{
 };
 
 class AddOption extends React.Component{
-    submitHandler(e){
-        e.preventDefault();
-        if(e.target.input.value.trim() !== '') alert(e.target.input.value.trim());
-    }
     render(){
         return (
             <div>
-                <form onSubmit={this.submitHandler}>
-                    <input type="text" placeholder="add option here" name="input"/>
+                <form onSubmit={this.props.submit}>
+                    <input type="text" placeholder="add option here" name="input" autoComplete="off"/>
                     <button>Add option</button>
                 </form>
             </div>
