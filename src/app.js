@@ -109,6 +109,9 @@ class Option extends React.Component{
 class AddOption extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            error: undefined
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -117,12 +120,16 @@ class AddOption extends React.Component{
         const option = e.target.input.value.trim();
         e.target.input.value = '';
         const error = this.props.submit(option);
-        if(error) alert(error);
+
+        this.setState(()=>{
+            return{error}
+        });
     }
 
     render(){
         return (
             <div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" placeholder="add option here" name="input" autoComplete="off"/>
                     <button>Add option</button>
