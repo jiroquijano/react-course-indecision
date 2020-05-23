@@ -4,7 +4,7 @@ class IndecisionApp extends React.Component{
         this.state = {
             title: 'Indecision App',
             subTitle: "RNGesus, take the wheel",
-            options: props.options,
+            options: [],
             chosen: ''
         };
         this.removeAll = this.removeAll.bind(this);
@@ -107,10 +107,6 @@ const Header = (props) =>{
     );
 };
 
-Header.defaultProps = {
-    title: 'Indecision'
-};
-
 const Action = (props) =>{
     return (
         <div>
@@ -124,6 +120,10 @@ const Action = (props) =>{
 const Options = (props)=>{
     return (
         <div>
+            {props.options.length === 0 && <p>Please enter options</p>}
+            <button onClick={props.removeAll}>
+                Remove all
+            </button>
             {
                 props.options.map((option,index)=>(
                     <Option 
@@ -133,9 +133,6 @@ const Options = (props)=>{
                     />
                 ))
             }
-            <button onClick={props.removeAll}>
-                Remove all
-            </button>
         </div>
     );
 }
