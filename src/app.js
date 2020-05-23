@@ -72,7 +72,8 @@ class IndecisionApp extends React.Component{
     render(){
         return(
             <div>
-                <Header 
+                <Header
+                    title={this.state.title}
                     subTitle={this.state.subTitle}
                 />
                 {this.state.chosen ? <p>{this.state.chosen}</p>:undefined}
