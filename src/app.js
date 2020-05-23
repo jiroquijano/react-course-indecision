@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 
 class Test extends React.Component{
     render(){
-        <h1>Hello</h1>
-    }
+        return(
+            <h1>Helloo</h1>
+        );
+    };
 };
 
 ReactDOM.render(<Test/>,document.querySelector('#app'));
