@@ -13,12 +13,30 @@ class IndecisionApp extends React.Component{
         this.removeOne = this.removeOne.bind(this);
     };
 
+    componentDidMount(){
+       console.log('fetching data');
+       try{
+           const options = JSON.parse(localStorage.getItem('options')) || [];
+           this.setState(()=>({options}));
+       }catch(e){
+           this.setState(()=>({options:[]}));
+       }
+    }
     
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.options.length !== this.state.options.length){
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+            console.log('saving data');
+        }
+    }
+
     removeOne(option){
-        const index = this.state.options.findIndex(curr=>curr===option);
-        const newOptions = [...this.state.options];
-        newOptions.splice(index,1)
-        this.setState(()=>({options:newOptions}));
+        this.setState((prevState)=>(
+            {
+                options:prevState.options.filter((curr)=>curr!==option)
+            }
+        ));
     };
     
     removeAll(){
@@ -125,8 +143,10 @@ const Options = (props)=>{
 const Option = (props)=>{
     return (
         <div>
-            <p>{props.optionText}</p>
-            <button onClick={props.delete.bind(this,props.optionText)}>Remove</button>
+            {props.optionText}
+            <button onClick={(e)=>{
+                props.delete(props.optionText)
+            }}>Remove</button>
         </div>
     );
 };
