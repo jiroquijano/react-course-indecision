@@ -1,8 +1,8 @@
 import React from 'react'; 
 import AddOption from './AddOption';
-import {Options} from './Options';
-import {Action} from './Action';
-import {Header} from './Header';
+import Options from './Options';
+import Action from './Action';
+import Header from './Header';
 
 export default class IndecisionApp extends React.Component{
     constructor(props){

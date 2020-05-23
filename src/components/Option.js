@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Option = (props)=>{
+const Option = (props)=>{
     return (
         <div>
             {props.optionText}
@@ -10,3 +10,5 @@ export const Option = (props)=>{
         </div>
     );
 };
+
+export default Option;

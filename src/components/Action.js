@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Action = (props) =>{
+const Action = (props) =>{
     return (
         <div>
             <button disabled={!props.hasOptions} onClick={props.chooseTask}>
@@ -9,3 +9,5 @@ export const Action = (props) =>{
         </div>
     );
 };
+
+export default Action;
