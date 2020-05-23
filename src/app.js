@@ -1,12 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import IndecisionApp from './components/IndecisionApp';
 
-class Test extends React.Component{
-    render(){
-        return(
-            <h1>Helloo</h1>
-        );
-    };
-};
-
-ReactDOM.render(<Test/>,document.querySelector('#app'));
+const appRoot = document.querySelector('#app');
+ReactDOM.render(<IndecisionApp/>, appRoot);
