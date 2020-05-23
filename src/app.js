@@ -10,8 +10,26 @@ class IndecisionApp extends React.Component{
         this.removeAll = this.removeAll.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
         this.chooseTask = this.chooseTask.bind(this);
+        this.removeOne = this.removeOne.bind(this);
     };
 
+    
+    removeOne(option){
+        const index = this.state.options.findIndex(curr=>curr===option);
+        const newOptions = [...this.state.options];
+        newOptions.splice(index,1)
+        this.setState(()=>({options:newOptions}));
+    };
+    
+    removeAll(){
+        this.setState(()=>{
+            return {
+                options: [],
+                chosen: ''
+            };
+        });
+    };
+    
     chooseTask(){
         const chosenNumber = Math.floor(Math.random()*this.state.options.length);
         this.setState(()=>{
@@ -22,38 +40,37 @@ class IndecisionApp extends React.Component{
         });
     };
 
-    removeAll(){
-        this.setState(()=>{
-            return {
-                options: [],
-                chosen: ''
-            };
-        });
-    };
-
     submitHandler(option){
         if (this.state.options.includes(option.toLowerCase())){
             return `"${option}" already in the list!`;
         } else if(option.length === 0){
             return 'empty string not allowed';
         }
+        const newOptions = this.state.options.concat(option.toLowerCase());
 
-        this.setState(()=>{
-            const newOptions = this.state.options.concat(option.toLowerCase());
-            return{
-                options:newOptions
-            }
-        });
+        this.setState(()=>({options:newOptions}));
     };
 
     render(){
         return(
             <div>
-                <Header subTitle={this.state.subTitle}/>
+                <Header 
+                    subTitle={this.state.subTitle}
+                />
                 {this.state.chosen ? <p>{this.state.chosen}</p>:undefined}
-                <Action chooseTask={this.chooseTask} hasOptions={this.state.options.length > 0}/>
-                <Options click={this.removeAll} options={this.state.options}/>
-                <AddOption submit={this.submitHandler}/>
+                <Action 
+                    chooseTask={this.chooseTask}
+                    hasOptions={this.state.options.length > 0}
+                />
+                <Options 
+                    removeAll={this.removeAll}
+                    removeOne={this.removeOne}
+                    options={this.state.options}
+
+                 />
+                <AddOption 
+                    submit={this.submitHandler}
+                />
             </div>
         );
     };
@@ -90,11 +107,17 @@ const Options = (props)=>{
     return (
         <div>
             {
-                props.options.map((option,index)=>{
-                    return <Option key={index} optionText={option}/>
-                })
+                props.options.map((option,index)=>(
+                    <Option 
+                        key={index} 
+                        optionText={option}
+                        delete={props.removeOne}
+                    />
+                ))
             }
-            <button onClick={props.click}>Remove all</button>
+            <button onClick={props.removeAll}>
+                Remove all
+            </button>
         </div>
     );
 }
@@ -103,6 +126,7 @@ const Option = (props)=>{
     return (
         <div>
             <p>{props.optionText}</p>
+            <button onClick={props.delete.bind(this,props.optionText)}>Remove</button>
         </div>
     );
 };
@@ -122,9 +146,7 @@ class AddOption extends React.Component{
         e.target.input.value = '';
         const error = this.props.submit(option);
 
-        this.setState(()=>{
-            return{error}
-        });
+        this.setState(()=>({error}));
     }
 
     render(){
