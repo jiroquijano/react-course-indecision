@@ -1,4 +1,10 @@
-import {print} from './utils.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-console.log('app.js is running!');
-print();
+class Test extends React.Component{
+    render(){
+        <h1>Hello</h1>
+    }
+};
+
+ReactDOM.render(<Test/>,document.querySelector('#app'));
