@@ -6,8 +6,7 @@
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack --watch",
-    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
-    "dev-server": "webpack-dev-server --watch"
+    "dev-server": "webpack-dev-server"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
@@ -19,12 +18,9 @@
     "live-server": "^1.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "validator": "^13.0.0",
     "webpack": "^4.43.0",
     "webpack-dev-server": "^3.11.0"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "webpack-cli": "^3.3.11"
   }
 }

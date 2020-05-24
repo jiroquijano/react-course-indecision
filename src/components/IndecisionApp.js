@@ -3,6 +3,7 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Action from './Action';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component{
     state= {
@@ -31,12 +32,7 @@ export default class IndecisionApp extends React.Component{
     
     chooseTask = () =>{
         const chosenNumber = Math.floor(Math.random()*this.state.options.length);
-        this.setState(()=>{
-            alert(this.state.options[chosenNumber]);
-            return {
-                chosen: this.state.options[chosenNumber]
-            }
-        });
+        this.setState(()=>({chosen:this.state.options[chosenNumber]}));
     };
 
     submitHandler = (option)=>{
@@ -49,6 +45,12 @@ export default class IndecisionApp extends React.Component{
 
         this.setState(()=>({options:newOptions}));
     };
+
+    unselectHandler = ()=>{
+        this.setState(()=>{
+            return {chosen:''};
+        });
+     };
 
     componentDidMount = ()=>{
         console.log('fetching data');
@@ -86,6 +88,10 @@ export default class IndecisionApp extends React.Component{
                 />
                 <AddOption 
                     submit={this.submitHandler}
+                />
+                <OptionModal 
+                    selectedOption = {this.state.chosen}
+                    unselect={this.unselectHandler}
                 />
             </div>
         );
