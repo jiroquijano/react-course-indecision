@@ -5,39 +5,14 @@ import Action from './Action';
 import Header from './Header';
 
 export default class IndecisionApp extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            title: 'Indecision App',
-            subTitle: "RNGesus, take the wheel",
-            options: [],
-            chosen: ''
-        };
-        this.removeAll = this.removeAll.bind(this);
-        this.submitHandler = this.submitHandler.bind(this);
-        this.chooseTask = this.chooseTask.bind(this);
-        this.removeOne = this.removeOne.bind(this);
+    state= {
+        title: 'Indecision App',
+        subTitle: "RNGesus, take the wheel",
+        options: [],
+        chosen: ''
     };
 
-    componentDidMount(){
-       console.log('fetching data');
-       try{
-           const options = JSON.parse(localStorage.getItem('options')) || [];
-           this.setState(()=>({options}));
-       }catch(e){
-           this.setState(()=>({options:[]}));
-       }
-    }
-    
-    componentDidUpdate(prevProps, prevState){
-        if(prevState.options.length !== this.state.options.length){
-            const json = JSON.stringify(this.state.options);
-            localStorage.setItem('options', json);
-            console.log('saving data');
-        }
-    }
-
-    removeOne(option){
+    removeOne = (option)=>{
         this.setState((prevState)=>(
             {
                 options:prevState.options.filter((curr)=>curr!==option)
@@ -45,7 +20,7 @@ export default class IndecisionApp extends React.Component{
         ));
     };
     
-    removeAll(){
+    removeAll = () =>{
         this.setState(()=>{
             return {
                 options: [],
@@ -54,7 +29,7 @@ export default class IndecisionApp extends React.Component{
         });
     };
     
-    chooseTask(){
+    chooseTask = () =>{
         const chosenNumber = Math.floor(Math.random()*this.state.options.length);
         this.setState(()=>{
             alert(this.state.options[chosenNumber]);
@@ -64,7 +39,7 @@ export default class IndecisionApp extends React.Component{
         });
     };
 
-    submitHandler(option){
+    submitHandler = (option)=>{
         if (this.state.options.includes(option.toLowerCase())){
             return `"${option}" already in the list!`;
         } else if(option.length === 0){
@@ -74,6 +49,24 @@ export default class IndecisionApp extends React.Component{
 
         this.setState(()=>({options:newOptions}));
     };
+
+    componentDidMount = ()=>{
+        console.log('fetching data');
+        try{
+            const options = JSON.parse(localStorage.getItem('options')) || [];
+            this.setState(()=>({options}));
+        }catch(e){
+            this.setState(()=>({options:[]}));
+        }
+     };
+     
+     componentDidUpdate = (prevProps, prevState)=>{
+         if(prevState.options.length !== this.state.options.length){
+             const json = JSON.stringify(this.state.options);
+             localStorage.setItem('options', json);
+             console.log('saving data');
+         }
+     };
 
     render(){
         return(
