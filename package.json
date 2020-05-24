@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve": "live-server public/",
-    "build": "webpack --watch",
+    "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
   "dependencies": {
@@ -18,6 +17,7 @@
     "css-loader": "^3.5.3",
     "live-server": "^1.2.1",
     "node-sass": "^4.14.1",
+    "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-modal": "^3.11.2",
