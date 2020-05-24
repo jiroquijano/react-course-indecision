@@ -8,7 +8,7 @@ import OptionModal from './OptionModal';
 export default class IndecisionApp extends React.Component{
     state= {
         title: 'Indecision App',
-        subTitle: "RNGesus, take the wheel",
+        subTitle: "RNGesus, take the wheel!",
         options: [],
         chosen: ''
     };
@@ -77,18 +77,22 @@ export default class IndecisionApp extends React.Component{
                     title={this.state.title}
                     subTitle={this.state.subTitle}
                 />
-                <Action 
-                    chooseTask={this.chooseTask}
-                    hasOptions={this.state.options.length > 0}
-                />
-                <Options 
-                    removeAll={this.removeAll}
-                    removeOne={this.removeOne}
-                    options={this.state.options}
-                />
-                <AddOption 
-                    submit={this.submitHandler}
-                />
+                <div className="container">
+                    <Action 
+                        chooseTask={this.chooseTask}
+                        hasOptions={this.state.options.length > 0}
+                    />
+                    <div className='widget'>
+                        <Options 
+                            removeAll={this.removeAll}
+                            removeOne={this.removeOne}
+                            options={this.state.options}
+                        />
+                        <AddOption 
+                            submit={this.submitHandler}
+                        />
+                    </div>
+                </div>
                 <OptionModal 
                     selectedOption = {this.state.chosen}
                     unselect={this.unselectHandler}
